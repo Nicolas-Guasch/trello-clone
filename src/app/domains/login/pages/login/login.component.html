@@ -23,7 +23,9 @@
           Log in to continue
         </h1>
         <form novalidate class="space-y-1.5">
-          <div class="relative rounded border border-slate-500">
+          <div
+            class="relative rounded border border-slate-500 focus-within:ring-1 focus-within:ring-trelloFocus"
+          >
             <input
               placeholder="Enter your email"
               type="email"
@@ -31,12 +33,9 @@
             />
           </div>
           <div>
-            <button
-              type="submit"
-              class="w-full rounded bg-blue-600 py-2.5 text-sm font-medium text-white"
-            >
-              Continue
-            </button>
+            <app-button color="trello" [typeButton]="'submit'">
+              <p class="py-2.5">Continue</p>
+            </app-button>
           </div>
         </form>
         <div class="mt-3">
@@ -48,7 +47,7 @@
           @for (social of socialButtons; track $index) {
             <div class="mb-4 rounded border border-gray-300">
               <button
-                class="relative box-border inline-flex h-10 w-full items-baseline justify-center text-center text-sm font-bold"
+                class="focus:ring-trelloShadow relative box-border inline-flex h-10 w-full items-baseline justify-center rounded text-center text-sm font-bold focus:ring-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-trelloFocus"
               >
                 <span class="-ml-0.5 mr-0.5 flex justify-center self-center"
                   ><img [src]="social.image" class="mr-1.5 h-6"
