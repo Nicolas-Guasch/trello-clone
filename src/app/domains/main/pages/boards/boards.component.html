@@ -1,2 +1,55 @@
-<app-navbar />
-<h1>Your Boards</h1>
+<div class="flex h-full flex-col overflow-hidden">
+  <header class="min-h-14 overflow-hidden">
+    <app-navbar class="block min-h-14" />
+  </header>
+  <main class="relative flex grow flex-col overflow-y-auto">
+    <div class="min-h-screen">
+      <div class="flex items-start justify-center pb-10">
+        <nav class="mt-10 flex w-72 flex-col divide-y divide-gray-300 px-4">
+          <ul>
+            <li class="mb-1">
+              <a
+                class="flex gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-blue-950 hover:bg-opacity-15"
+                routerLink="/boards"
+                routerLinkActive="selected"
+                ><span class="block h-6 w-6 text-center"
+                  ><fa-icon [icon]="faTrello"></fa-icon></span
+                ><span>Boards</span></a
+              >
+            </li>
+            <li class="mb-1">
+              <a
+                class="flex gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-blue-950 hover:bg-opacity-15"
+                routerLink="/templates"
+                routerLinkActive="selected"
+                ><span class="block h-6 w-6 text-center"
+                  ><fa-icon [icon]="faTrello"></fa-icon></span
+                ><span>Templates</span></a
+              >
+            </li>
+            <li class="mb-1">
+              <a
+                class="flex gap-2 rounded-lg px-2 py-1.5 text-sm hover:bg-blue-950 hover:bg-opacity-15"
+                routerLink="/"
+                routerLinkActive="selected"
+                [routerLinkActiveOptions]="{ exact: true }"
+                ><span class="block h-6 w-6 text-center"
+                  ><fa-icon [icon]="faHome"></fa-icon></span
+                ><span>Home</span></a
+              >
+            </li>
+          </ul>
+          <div class="pt-3">
+            <h2 class="pl-3 text-sm">Workspaces</h2>
+          </div>
+        </nav>
+        <div
+          class="mx-4 mt-10 w-full"
+          style="max-width: 825px; min-width: 288px"
+        >
+          <app-all-boards></app-all-boards>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -35,31 +35,21 @@
         />
       </a>
       <div class="flex items-center">
-        <ul class="flex items-center space-x-2 text-sm font-medium">
-          <li>
-            <a
-              class="mr-1 block rounded py-1.5 pl-3 pr-2.5 text-black hover:bg-blue-950 hover:bg-opacity-15"
-              >Workspaces</a
-            >
-          </li>
-          <li>
-            <a
-              class="mr-1 block rounded py-1.5 pl-3 pr-2.5 text-black hover:bg-blue-950 hover:bg-opacity-15"
-              >Recent</a
-            >
-          </li>
-          <li>
-            <a
-              class="mr-1 block rounded py-1.5 pl-3 pr-2.5 text-black hover:bg-blue-950 hover:bg-opacity-15"
-              >Starred</a
-            >
-          </li>
-          <li>
-            <a
-              class="mr-1 block rounded py-1.5 pl-3 pr-2.5 text-black hover:bg-blue-950 hover:bg-opacity-15"
-              >Templates</a
-            >
-          </li>
+        <ul class="flex items-center space-x-1 text-sm font-medium">
+          @for (dropdown of dropdownMenus; track $index) {
+            <li>
+              <button
+                type="button"
+                class="mr-1 block rounded py-1.5 pl-3 pr-2.5 text-black hover:bg-blue-950 hover:bg-opacity-15"
+              >
+                <span class="mr-0.5 capitalize">{{ dropdown }}</span>
+                <span class="ml-1 inline-block min-w-4 text-gray-500"
+                  ><fa-icon [icon]="faAngleDown"></fa-icon>
+                </span>
+              </button>
+            </li>
+          }
+
           <li class="h-8">
             <app-button typeBtn="button" color="trello"
               ><p class="px-3 py-1.5">Create</p></app-button
@@ -69,94 +59,45 @@
       </div>
     </div>
     <div class="flex items-center">
+      <button class="mr-1 h-8 w-8 rounded-full text-gray-500" type="button">
+        <div class="translate-x-0.5 rotate-45">
+          <fa-icon [icon]="faBell"></fa-icon>
+        </div>
+      </button>
+      <button class="mr-1 h-8 w-8 rounded-full text-gray-500" type="button">
+        <fa-icon [icon]="faQuestionCircle"></fa-icon>
+      </button>
       <button
         type="button"
-        class="flex rounded-full"
-        aria-expanded="false"
+        class="block rounded-full p-1"
+        [attr.aria-expanded]="profileIsOpen()"
         role="button"
         (click)="handleProfileClick()"
         cdkOverlayOrigin
-        #menuOverlay="cdkOverlayOrigin"
+        #profileOverlay="cdkOverlayOrigin"
       >
-        <img
-          class="h-8 w-8 rounded-full"
-          src="/images/logo/icon-gradient-blue-trello.png"
-          alt="user-photo"
-        />
+        <span
+          class="inline-flex h-6 w-6 rounded-full"
+          style="
+            background-image: url(/images/user/30.png);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+          "
+          role="img"
+          aria-label="User photo"
+          title="User photo"
+        ></span>
       </button>
     </div>
   </div>
 </nav>
 <ng-template
   cdkConnectedOverlay
-  [cdkConnectedOverlayOrigin]="menuOverlay"
+  [cdkConnectedOverlayOrigin]="profileOverlay"
   [cdkConnectedOverlayOpen]="profileIsOpen()"
+  (overlayOutsideClick)="profileIsOpen.set(false)"
+  (detach)="profileIsOpen.set(false)"
 >
-  <div
-    class="z-50 my-4 w-60 list-none divide-y divide-gray-100 rounded bg-white text-base shadow"
-  >
-    <div class="flex justify-between px-4 py-3">
-      <span class="block text-center text-sm text-gray-900">Account</span>
-      <button
-        (click)="handleProfileClick()"
-        class="block text-sm text-gray-900"
-      >
-        X
-        <!--<fa-icon [icon]="faClose"></fa-icon>-->
-      </button>
-    </div>
-    <div class="flex items-center space-x-4 px-4 py-3">
-      <img
-        class="h-10 w-10 rounded-full"
-        src="/images/logo/icon-gradient-blue-trello.png"
-        alt="user-photo"
-      />
-      <div class="space-y-1">
-        <div>Jese Leos</div>
-        <div class="text-sm text-gray-500">nico&#64;gmail.com</div>
-      </div>
-    </div>
-    <ul class="py-1">
-      <li>
-        <a
-          href="#"
-          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
-          >Profile</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
-          >Activity</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
-          >Cards</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
-          >Settings</a
-        >
-      </li>
-      <li>
-        <a
-          href="#"
-          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600"
-          >Sign out</a
-        >
-      </li>
-    </ul>
-    <ul class="py-1">
-      <li>
-        <a href="#" class="block px-4 py-2 text-sm text-gray-700">Log out</a>
-      </li>
-    </ul>
-  </div>
+  <app-account-menu></app-account-menu>
 </ng-template>

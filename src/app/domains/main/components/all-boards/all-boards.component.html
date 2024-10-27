@@ -1,0 +1,109 @@
+<div class="pb-5">
+  <div class="relative ml-10 flex pb-3">
+    <span
+      class="absolute -left-10 top-0 flex h-8 w-8 items-baseline justify-center"
+      ><fa-icon [icon]="faStar"></fa-icon
+    ></span>
+    <h3 class="flex-1 font-bold">Starred boards</h3>
+  </div>
+  <div>
+    <ul class="flex flex-wrap justify-start">
+      @for (board of starredBoards(); track board.id) {
+        <li class="mb-[2%] mr-[2%] w-[23.5%]">
+          <app-board-tile [boardId]="board.id"></app-board-tile>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
+<div class="pb-5">
+  <div class="relative ml-10 flex pb-3">
+    <span
+      class="absolute -left-10 top-0 flex h-8 w-8 items-center justify-center"
+      ><fa-icon [icon]="faClock"></fa-icon
+    ></span>
+    <h3 class="flex-1 font-bold">Recent boards</h3>
+  </div>
+  <div>
+    <ul class="flex flex-wrap justify-start">
+      @for (board of recentBoards(); track board.id) {
+        <li class="mb-[2%] mr-[2%] w-[23.5%]">
+          <app-board-tile [boardId]="board.id"></app-board-tile>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
+<div>
+  <h3 class="font-bold text-gray-500">YOUR WORKSPACES</h3>
+  <div class="pb-5">
+    <div class="relative ml-10 flex pb-3">
+      <div class="absolute -left-10 top-0">
+        <div class="mb-4 h-8 w-8 overflow-hidden rounded-sm">
+          <div
+            class="flex h-full w-full items-center justify-center bg-gradient-to-b from-[#AE4787] to-[#E774BB] text-xl/5 font-bold text-white"
+          >
+            T
+          </div>
+        </div>
+      </div>
+      <h3 class="mt-0.5 inline-block flex-1 text-base font-bold">
+        Trello workspace
+      </h3>
+      <div class="ml-2 flex flex-wrap space-x-2">
+        <app-button class="mb-2 inline-block" color="neutral">
+          <div class="py-1.5 pl-1.5 pr-3">
+            <span class="mr-1.5 inline-block"
+              ><fa-icon class="text-gray-600" [icon]="faTrello"></fa-icon
+            ></span>
+            <span> Boards </span>
+          </div>
+        </app-button>
+        <app-button class="mb-2 inline-block" color="neutral">
+          <div class="py-1.5 pl-1.5 pr-3">
+            <span class="mr-1.5 inline-block"
+              ><fa-icon class="text-gray-600" [icon]="faTrello"></fa-icon
+            ></span>
+            <span> Views </span>
+          </div>
+        </app-button>
+        <app-button class="mb-2 inline-block" color="neutral">
+          <div class="py-1.5 pl-1.5 pr-3">
+            <span class="mr-1.5 inline-block"
+              ><fa-icon class="text-gray-600" [icon]="faTrello"></fa-icon
+            ></span>
+            <span> Members </span>
+          </div>
+        </app-button>
+        <app-button class="mb-2 inline-block" color="neutral">
+          <div class="py-1.5 pl-1.5 pr-3">
+            <span class="mr-1.5 inline-block"
+              ><fa-icon class="text-gray-600" [icon]="faTrello"></fa-icon
+            ></span>
+            <span> Settings </span>
+          </div>
+        </app-button>
+        <app-button class="mb-2 inline-block" color="neutral">
+          <div class="py-1.5 pl-1.5 pr-3">
+            <span class="mr-1.5 inline-block"
+              ><fa-icon class="text-gray-600" [icon]="faTrello"></fa-icon
+            ></span>
+            <span> Upgrade </span>
+          </div>
+        </app-button>
+      </div>
+    </div>
+    <ul class="flex flex-wrap justify-start">
+      @for (board of allBoards(); track board.id) {
+        <li class="mb-[2%] mr-[2%] w-[23.5%]">
+          <app-board-tile [boardId]="board.id"></app-board-tile>
+        </li>
+      }
+    </ul>
+  </div>
+</div>
+<div class="flex">
+  <app-button color="neutral">
+    <div class="px-3 py-1.5">View all closed boards</div>
+  </app-button>
+</div>

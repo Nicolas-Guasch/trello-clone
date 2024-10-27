@@ -1,0 +1,15 @@
+<a
+  class="group relative block cursor-pointer rounded-sm bg-slate-200 bg-cover bg-center p-2 text-sm text-white"
+  [style]="tileStyles"
+>
+  <span
+    class="absolute bottom-0 left-0 right-0 top-0 block rounded-sm bg-[#00000026] group-hover:bg-[#00000040]"
+  ></span>
+  <div class="relative flex h-20 flex-col justify-between">
+    <div
+      class="inline-block max-h-10 w-full flex-shrink-0 flex-grow-0 basis-auto overflow-hidden break-words text-base/5 font-bold"
+    >
+      {{ board().title }}
+    </div>
+  </div>
+</a>

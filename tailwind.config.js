@@ -15,6 +15,8 @@ module.exports = {
         trelloHover: "#0055cc",
         trelloFocus: "#388bff",
         trelloShadow: "#2684ff99",
+        trelloBgNeutral: "#091e420f",
+        trelloBgNeutralHover: "#091e4224",
       },
     },
   },
