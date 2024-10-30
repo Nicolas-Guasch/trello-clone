@@ -7,21 +7,21 @@ import { boardInfo } from '../models/boardInfo.models';
 export class BoardsService {
   private boards = signal<boardInfo[]>([
     {
-      id: Date.now().toString(),
+      id: (0).toString(),
       title: 'My first board',
       backgroundColor: '0079BF',
       lastOpened: Date.now().toString(),
       starred: true,
     },
     {
-      id: (Date.now() + 1).toString(),
+      id: (1).toString(),
       title: 'Second one',
       backgroundColor: '519839',
       lastOpened: (Date.now() + 1).toString(),
       starred: false,
     },
     {
-      id: (Date.now() + 2).toString(),
+      id: (2).toString(),
       title: 'Third',
       backgroundColor: '0079BF',
       backgroundImage: 'images/board/boardbg1.webp',
@@ -29,14 +29,14 @@ export class BoardsService {
       starred: false,
     },
     {
-      id: (Date.now() + 3).toString(),
+      id: (3).toString(),
       title: 'Fourth',
       backgroundImage: 'images/board/boardbg1.webp',
       lastOpened: (Date.now() + 3).toString(),
       starred: false,
     },
     {
-      id: (Date.now() + 4).toString(),
+      id: (4).toString(),
       title: 'Last one',
       backgroundColor: '0079BF',
       backgroundImage: 'images/board/boardbg1.webp',
