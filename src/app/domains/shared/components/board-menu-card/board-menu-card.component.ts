@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { boardInfo } from '../../models/boardInfo.models';
+import { boardInfo } from '../../../main/models/boardInfo.models';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
