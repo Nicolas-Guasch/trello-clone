@@ -25,6 +25,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { BoardsService } from '../../services/boards.service';
 import { menuOverlay } from '../../models/menuOverlay.model';
+import { BoardMenuCardComponent } from '../board-menu-card/board-menu-card.component';
 
 @Component({
   selector: 'app-navbar',
@@ -35,6 +36,7 @@ import { menuOverlay } from '../../models/menuOverlay.model';
     OverlayModule,
     AccountMenuComponent,
     FontAwesomeModule,
+    BoardMenuCardComponent,
   ],
   templateUrl: './navbar.component.html',
 })

@@ -1,0 +1,36 @@
+<li class="group mb-1 mt-0.5">
+  <div class="cursor-pointer rounded-lg hover:bg-trelloBgNeutralHover">
+    <a class="box-content flex h-8 px-2 py-1">
+      @if (board().backgroundColor) {
+        <div
+          class="h-8 w-10 flex-none rounded"
+          [style]="'background-color:#' + board().backgroundColor"
+        ></div>
+      } @else if (board().backgroundImage) {
+        <div
+          class="h-8 w-10 flex-none rounded bg-cover"
+          [style]="'background-image:url(' + board().backgroundImage + ')'"
+        ></div>
+      }
+      <div class="flex w-full flex-1 flex-col pl-2">
+        <div class="text-sm">{{ board().title }}</div>
+        <div class="text-xs">Trello workspace</div>
+      </div>
+      <div>
+        <button (click)="star.emit(board().id)">
+          @if (board().starred) {
+            <fa-icon
+              class="text-yellow-500 duration-75 hover:scale-[1.2]"
+              [icon]="faStar"
+            ></fa-icon>
+          } @else {
+            <fa-icon
+              class="text-transparent hover:!text-yellow-500 group-hover:text-gray-500"
+              [icon]="faStar"
+            ></fa-icon>
+          }
+        </button>
+      </div>
+    </a>
+  </div>
+</li>
