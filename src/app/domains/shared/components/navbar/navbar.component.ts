@@ -7,7 +7,7 @@ import {
   signal,
   viewChildren,
 } from '@angular/core';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
+import { ButtonComponent } from '../button/button.component';
 import {
   Overlay,
   OverlayConfig,
@@ -15,7 +15,7 @@ import {
   OverlayRef,
 } from '@angular/cdk/overlay';
 import { CdkPortal } from '@angular/cdk/portal';
-import { AccountMenuComponent } from '../account-menu/account-menu.component';
+import { AccountMenuComponent } from '../../../main/components/account-menu/account-menu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faBell,
@@ -23,9 +23,9 @@ import {
   faAngleDown,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import { BoardsService } from '../../services/boards.service';
-import { menuOverlay } from '../../models/menuOverlay.model';
-import { BoardMenuCardComponent } from '../board-menu-card/board-menu-card.component';
+import { BoardsService } from '../../../main/services/boards.service';
+import { menuOverlay } from '../../../main/models/menuOverlay.model';
+import { BoardMenuCardComponent } from '../../../main/components/board-menu-card/board-menu-card.component';
 
 @Component({
   selector: 'app-navbar',

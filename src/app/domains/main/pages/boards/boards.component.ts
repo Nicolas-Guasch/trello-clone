@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
-import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 import { AllBoardsComponent } from '../../components/all-boards/all-boards.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
