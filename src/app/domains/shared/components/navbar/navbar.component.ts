@@ -15,7 +15,7 @@ import {
   OverlayRef,
 } from '@angular/cdk/overlay';
 import { CdkPortal } from '@angular/cdk/portal';
-import { AccountMenuComponent } from '../../../main/components/account-menu/account-menu.component';
+import { AccountMenuComponent } from '../account-menu/account-menu.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faBell,
@@ -24,8 +24,8 @@ import {
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { BoardsService } from '../../../main/services/boards.service';
-import { menuOverlay } from '../../../main/models/menuOverlay.model';
-import { BoardMenuCardComponent } from '../../../main/components/board-menu-card/board-menu-card.component';
+import { menuOverlay } from '../../models/menuOverlay.model';
+import { BoardMenuCardComponent } from '../../components/board-menu-card/board-menu-card.component';
 
 @Component({
   selector: 'app-navbar',
