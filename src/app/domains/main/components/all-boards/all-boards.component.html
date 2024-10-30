@@ -1,39 +1,47 @@
-<div class="pb-5">
-  <div class="relative ml-10 flex pb-3">
-    <span
-      class="absolute -left-10 top-0 flex h-8 w-8 items-baseline justify-center"
-      ><fa-icon [icon]="faStar"></fa-icon
-    ></span>
-    <h3 class="flex-1 font-bold">Starred boards</h3>
+@if (starredBoards().length > 0) {
+  <div class="pb-5">
+    <div class="relative ml-10 flex pb-3">
+      <span
+        class="absolute -left-10 top-0 flex h-8 w-8 items-baseline justify-center"
+        ><fa-icon [icon]="faStar"></fa-icon
+      ></span>
+      <h3 class="flex-1 font-bold">Starred boards</h3>
+    </div>
+    <div>
+      <ul class="flex flex-wrap justify-start">
+        @for (board of starredBoards(); track board.id) {
+          <li
+            class="mb-2 mr-2 w-[calc(50%-4px)] md:mb-[2%] md:mr-[2%] md:w-[32%] lg:w-[23.5%] max-md:[&:nth-child(2n)]:mr-0 md:max-lg:[&:nth-child(3n)]:mr-0 lg:[&:nth-child(4n)]:mr-0"
+          >
+            <app-board-tile [boardId]="board.id"></app-board-tile>
+          </li>
+        }
+      </ul>
+    </div>
   </div>
-  <div>
-    <ul class="flex flex-wrap justify-start">
-      @for (board of starredBoards(); track board.id) {
-        <li class="mb-[2%] mr-[2%] w-[23.5%]">
-          <app-board-tile [boardId]="board.id"></app-board-tile>
-        </li>
-      }
-    </ul>
+}
+@if (recentBoards().length) {
+  <div class="pb-5">
+    <div class="relative ml-10 flex pb-3">
+      <span
+        class="absolute -left-10 top-0 flex h-8 w-8 items-center justify-center"
+        ><fa-icon [icon]="faClock"></fa-icon
+      ></span>
+      <h3 class="flex-1 font-bold">Recent boards</h3>
+    </div>
+    <div>
+      <ul class="flex flex-wrap justify-start">
+        @for (board of recentBoards(); track board.id) {
+          <li
+            class="mb-2 mr-2 w-[calc(50%-4px)] md:mb-[2%] md:mr-[2%] md:w-[32%] lg:w-[23.5%] max-md:[&:nth-child(2n)]:mr-0 md:max-lg:[&:nth-child(3n)]:mr-0 lg:[&:nth-child(4n)]:mr-0"
+          >
+            <app-board-tile [boardId]="board.id"></app-board-tile>
+          </li>
+        }
+      </ul>
+    </div>
   </div>
-</div>
-<div class="pb-5">
-  <div class="relative ml-10 flex pb-3">
-    <span
-      class="absolute -left-10 top-0 flex h-8 w-8 items-center justify-center"
-      ><fa-icon [icon]="faClock"></fa-icon
-    ></span>
-    <h3 class="flex-1 font-bold">Recent boards</h3>
-  </div>
-  <div>
-    <ul class="flex flex-wrap justify-start">
-      @for (board of recentBoards(); track board.id) {
-        <li class="mb-[2%] mr-[2%] w-[23.5%]">
-          <app-board-tile [boardId]="board.id"></app-board-tile>
-        </li>
-      }
-    </ul>
-  </div>
-</div>
+}
 <div>
   <h3 class="font-bold text-gray-500">YOUR WORKSPACES</h3>
   <div class="pb-5">
@@ -62,7 +70,10 @@
         <app-button class="mb-2 inline-block" color="neutral">
           <div class="py-1.5 pl-1.5 pr-3">
             <span class="mr-1.5 inline-block"
-              ><fa-icon class="text-gray-600" [icon]="faTrello"></fa-icon
+              ><fa-icon
+                class="text-gray-600"
+                [icon]="faTableCellsLarge"
+              ></fa-icon
             ></span>
             <span> Views </span>
           </div>
@@ -70,7 +81,7 @@
         <app-button class="mb-2 inline-block" color="neutral">
           <div class="py-1.5 pl-1.5 pr-3">
             <span class="mr-1.5 inline-block"
-              ><fa-icon class="text-gray-600" [icon]="faTrello"></fa-icon
+              ><fa-icon class="text-gray-600" [icon]="faUser"></fa-icon
             ></span>
             <span> Members </span>
           </div>
@@ -78,27 +89,41 @@
         <app-button class="mb-2 inline-block" color="neutral">
           <div class="py-1.5 pl-1.5 pr-3">
             <span class="mr-1.5 inline-block"
-              ><fa-icon class="text-gray-600" [icon]="faTrello"></fa-icon
+              ><fa-icon class="text-gray-600" [icon]="faGear"></fa-icon
             ></span>
             <span> Settings </span>
           </div>
         </app-button>
         <app-button class="mb-2 inline-block" color="neutral">
-          <div class="py-1.5 pl-1.5 pr-3">
-            <span class="mr-1.5 inline-block"
-              ><fa-icon class="text-gray-600" [icon]="faTrello"></fa-icon
-            ></span>
-            <span> Upgrade </span>
+          <div class="flex justify-center py-1.5 pl-1.5 pr-3">
+            <div class="mr-1.5 box-content block h-5 w-5 bg-purple-700">
+              <fa-icon class="text-white" [icon]="faSuitcase"></fa-icon>
+            </div>
+            <div>Upgrade</div>
           </div>
         </app-button>
       </div>
     </div>
     <ul class="flex flex-wrap justify-start">
       @for (board of allBoards(); track board.id) {
-        <li class="mb-[2%] mr-[2%] w-[23.5%]">
+        <li
+          class="mb-2 mr-2 w-[calc(50%-4px)] md:mb-[2%] md:mr-[2%] md:w-[32%] lg:w-[23.5%] max-md:[&:nth-child(2n)]:mr-0 md:max-lg:[&:nth-child(3n)]:mr-0 lg:[&:nth-child(4n)]:mr-0"
+        >
           <app-board-tile [boardId]="board.id"></app-board-tile>
         </li>
       }
+      <li
+        class="mb-2 mr-2 w-[calc(50%-4px)] md:mb-[2%] md:mr-[2%] md:w-[32%] lg:w-[23.5%] max-md:[&:nth-child(2n)]:mr-0 md:max-lg:[&:nth-child(3n)]:mr-0 lg:[&:nth-child(4n)]:mr-0"
+      >
+        <div
+          class="relative box-content table-cell h-20 cursor-pointer rounded-sm bg-trelloBgNeutral bg-cover bg-center p-2 text-center align-middle text-sm text-gray-700 hover:bg-trelloBgNeutralHover"
+          style="width: inherit"
+        >
+          <p>
+            <span>Create new board</span>
+          </p>
+        </div>
+      </li>
     </ul>
   </div>
 </div>

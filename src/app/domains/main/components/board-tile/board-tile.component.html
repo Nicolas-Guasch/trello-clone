@@ -11,5 +11,25 @@
     >
       {{ board().title }}
     </div>
+    <div
+      class="flex flex-shrink-0 flex-grow-0 basis-auto items-baseline justify-end"
+    >
+      <span
+        class="relative -right-1 ml-1 box-content flex flex-shrink-0 flex-grow-0 basis-auto items-center overflow-hidden"
+        (click)="toggleStar()"
+      >
+        @if (board().starred) {
+          <span
+            class="mr-1.5 box-content block h-[18px] w-[18px] text-center text-sm/4 text-yellow-500 opacity-100 transition-all duration-150 hover:scale-[1.2]"
+            ><fa-icon [icon]="faStar"></fa-icon
+          ></span>
+        } @else {
+          <span
+            class="box-content block h-[18px] w-0 text-center text-sm/4 text-white opacity-0 transition-all duration-150 hover:scale-[1.2] group-hover:mr-1.5 group-hover:w-[18px] group-hover:opacity-100"
+            ><fa-icon [icon]="faStar"></fa-icon
+          ></span>
+        }
+      </span>
+    </div>
   </div>
 </a>

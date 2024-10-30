@@ -1,10 +1,20 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { AllBoardsComponent } from '../../components/all-boards/all-boards.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBox,
+  faWaveSquare,
+  faAngleDown,
+  faAngleUp,
+  faHeart,
+  faTableCellsLarge,
+  faUsers,
+  faGear,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-boards',
@@ -13,6 +23,7 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
     NavbarComponent,
     AllBoardsComponent,
     RouterLink,
+    CdkAccordionModule,
     RouterLinkActive,
     FontAwesomeModule,
   ],
@@ -26,5 +37,12 @@ import { faHome } from '@fortawesome/free-solid-svg-icons';
 })
 export class BoardsComponent {
   faTrello = faTrello;
-  faHome = faHome;
+  faBox = faBox;
+  faWaveSquare = faWaveSquare;
+  faAngleDown = faAngleDown;
+  faAngleUp = faAngleUp;
+  faHeart = faHeart;
+  faTableCellsLarge = faTableCellsLarge;
+  faUsers = faUsers;
+  faGear = faGear;
 }

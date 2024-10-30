@@ -5,7 +5,9 @@
   <main class="relative flex grow flex-col overflow-y-auto">
     <div class="min-h-screen">
       <div class="flex items-start justify-center pb-10">
-        <nav class="mt-10 flex w-72 flex-col divide-y divide-gray-300 px-4">
+        <nav
+          class="mt-10 hidden w-72 flex-col divide-y divide-gray-300 px-4 sm:flex"
+        >
           <ul>
             <li class="mb-1">
               <a
@@ -23,7 +25,7 @@
                 routerLink="/templates"
                 routerLinkActive="selected"
                 ><span class="block h-6 w-6 text-center"
-                  ><fa-icon [icon]="faTrello"></fa-icon></span
+                  ><fa-icon [icon]="faBox"></fa-icon></span
                 ><span>Templates</span></a
               >
             </li>
@@ -34,13 +36,95 @@
                 routerLinkActive="selected"
                 [routerLinkActiveOptions]="{ exact: true }"
                 ><span class="block h-6 w-6 text-center"
-                  ><fa-icon [icon]="faHome"></fa-icon></span
+                  ><fa-icon [icon]="faWaveSquare"></fa-icon></span
                 ><span>Home</span></a
               >
             </li>
           </ul>
           <div class="pt-3">
-            <h2 class="pl-3 text-sm">Workspaces</h2>
+            <h2 class="pl-3 text-xs">Workspaces</h2>
+            <cdk-accordion>
+              <cdk-accordion-item #accordionWorkspace="cdkAccordionItem">
+                <a
+                  class="active:bg-trelloBgNeutralPressed flex min-h-5 select-none items-center gap-2 rounded-lg px-2 py-1.5 text-sm transition-colors duration-75 ease-in-out hover:bg-trelloBgNeutralHover"
+                  role="button"
+                  tabindex="0"
+                  [attr.id]="'workspace-header'"
+                  [attr.aria-expanded]="accordionWorkspace.expanded"
+                  [attr.aria-controls]="'workspace-body'"
+                  (click)="accordionWorkspace.toggle()"
+                >
+                  <div
+                    class="flex h-6 w-6 shrink-0 grow-0 basis-auto items-center justify-center bg-gradient-to-b from-[#AE4787] to-[#E774BB] font-bold text-white"
+                  >
+                    T
+                  </div>
+                  <span
+                    class="box-content w-min flex-auto overflow-hidden text-ellipsis"
+                    >Trello workspace</span
+                  >
+                  <span class="ml-1 mr-1 box-content w-4">
+                    <fa-icon
+                      [icon]="
+                        accordionWorkspace.expanded ? faAngleUp : faAngleDown
+                      "
+                    ></fa-icon>
+                  </span>
+                </a>
+                <ul
+                  role="region"
+                  [attr.id]="'workspace-body'"
+                  [attr.labelledby]="'workspace-header'"
+                  [style.display]="accordionWorkspace.expanded ? '' : 'none'"
+                >
+                  <li class="mb-1 box-content">
+                    <a
+                      class="active:bg-trelloBgNeutralPressed mt-1 box-content flex min-h-6 items-center gap-2 rounded-lg py-1 pl-10 pr-2 text-sm hover:bg-trelloBgNeutralHover"
+                      ><span
+                        class="flex h-6 w-6 items-center justify-center text-gray-600"
+                        ><fa-icon [icon]="faTrello"></fa-icon></span
+                      ><span class="w-min flex-auto">Boards</span></a
+                    >
+                  </li>
+                  <li class="mb-1 box-content">
+                    <a
+                      class="active:bg-trelloBgNeutralPressed mt-1 box-content flex min-h-6 items-center gap-2 rounded-lg py-1 pl-10 pr-2 text-sm hover:bg-trelloBgNeutralHover"
+                      ><span
+                        class="flex h-6 w-6 items-center justify-center text-gray-600"
+                        ><fa-icon [icon]="faHeart"></fa-icon></span
+                      ><span class="w-min flex-auto">Highlights</span></a
+                    >
+                  </li>
+                  <li class="mb-1 box-content">
+                    <a
+                      class="active:bg-trelloBgNeutralPressed mt-1 box-content flex min-h-6 items-center gap-2 rounded-lg py-1 pl-10 pr-2 text-sm hover:bg-trelloBgNeutralHover"
+                      ><span
+                        class="flex h-6 w-6 items-center justify-center text-gray-600"
+                        ><fa-icon [icon]="faTableCellsLarge"></fa-icon></span
+                      ><span class="w-min flex-auto">Views</span></a
+                    >
+                  </li>
+                  <li class="mb-1 box-content">
+                    <a
+                      class="active:bg-trelloBgNeutralPressed mt-1 box-content flex min-h-6 items-center gap-2 rounded-lg py-1 pl-10 pr-2 text-sm hover:bg-trelloBgNeutralHover"
+                      ><span
+                        class="flex h-6 w-6 items-center justify-center text-gray-600"
+                        ><fa-icon [icon]="faUsers"></fa-icon></span
+                      ><span class="w-min flex-auto">Members</span></a
+                    >
+                  </li>
+                  <li class="mb-1 box-content">
+                    <a
+                      class="active:bg-trelloBgNeutralPressed mt-1 box-content flex min-h-6 items-center gap-2 rounded-lg py-1 pl-10 pr-2 text-sm hover:bg-trelloBgNeutralHover"
+                      ><span
+                        class="flex h-6 w-6 items-center justify-center text-gray-600"
+                        ><fa-icon [icon]="faGear"></fa-icon></span
+                      ><span class="w-min flex-auto">Settings</span></a
+                    >
+                  </li>
+                </ul>
+              </cdk-accordion-item>
+            </cdk-accordion>
           </div>
         </nav>
         <div

@@ -1,14 +1,17 @@
 import { Component, computed, inject, input } from '@angular/core';
 import { BoardsService } from '../../services/boards.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-board-tile',
   standalone: true,
-  imports: [],
+  imports: [FontAwesomeModule],
   templateUrl: './board-tile.component.html',
   styleUrl: './board-tile.component.scss',
 })
 export class BoardTileComponent {
+  faStar = faStar;
   boardService = inject(BoardsService);
   boardId = input.required<string>();
   board = computed(() => {
@@ -29,5 +32,9 @@ export class BoardTileComponent {
       this.tileStyles['background-image'] =
         `url("${this.board().backgroundImage}")`;
     }
+  }
+
+  toggleStar() {
+    this.boardService.toggleStarred(this.board().id);
   }
 }

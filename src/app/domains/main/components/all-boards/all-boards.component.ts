@@ -4,7 +4,14 @@ import { BoardsService } from '../../services/boards.service';
 import { boardInfo } from '../../models/boardInfo.models';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
-import { faClock, faStar } from '@fortawesome/free-solid-svg-icons';
+import {
+  faClock,
+  faGear,
+  faStar,
+  faSuitcase,
+  faTableCellsLarge,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { BoardTileComponent } from '../board-tile/board-tile.component';
 
 @Component({
@@ -18,6 +25,10 @@ export class AllBoardsComponent {
   faTrello = faTrello;
   faClock = faClock;
   faStar = faStar;
+  faUser = faUser;
+  faGear = faGear;
+  faTableCellsLarge = faTableCellsLarge;
+  faSuitcase = faSuitcase;
 
   boardsService = inject(BoardsService);
   boards: Signal<boardInfo[]> = this.boardsService.getBoards();

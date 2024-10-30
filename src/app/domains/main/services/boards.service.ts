@@ -54,4 +54,12 @@ export class BoardsService {
   addBoard(newBoard: boardInfo) {
     this.boards.update((list) => [...list, newBoard]);
   }
+
+  toggleStarred(id: string) {
+    this.boards.update((list) =>
+      list.map((board) =>
+        board.id === id ? { ...board, starred: !board.starred } : board,
+      ),
+    );
+  }
 }
