@@ -1,6 +1,10 @@
 <li class="group mb-1 mt-0.5">
   <div class="cursor-pointer rounded-lg hover:bg-trelloBgNeutralHover">
-    <a class="box-content flex h-8 px-2 py-1">
+    <a
+      class="box-content flex h-8 px-2 py-1"
+      [routerLink]="'/b/' + board().id"
+      (click)="boardSelected.emit()"
+    >
       @if (board().backgroundColor) {
         <div
           class="h-8 w-10 flex-none rounded"

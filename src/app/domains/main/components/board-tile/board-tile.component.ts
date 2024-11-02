@@ -2,11 +2,12 @@ import { Component, computed, inject, input } from '@angular/core';
 import { BoardsService } from '../../services/boards.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-board-tile',
   standalone: true,
-  imports: [FontAwesomeModule],
+  imports: [FontAwesomeModule, RouterLink],
   templateUrl: './board-tile.component.html',
   styleUrl: './board-tile.component.scss',
 })

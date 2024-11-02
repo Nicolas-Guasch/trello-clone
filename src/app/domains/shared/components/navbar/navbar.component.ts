@@ -26,6 +26,7 @@ import {
 import { BoardsService } from '../../../main/services/boards.service';
 import { menuOverlay } from '../../models/menuOverlay.model';
 import { BoardMenuCardComponent } from '../../components/board-menu-card/board-menu-card.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -37,6 +38,7 @@ import { BoardMenuCardComponent } from '../../components/board-menu-card/board-m
     AccountMenuComponent,
     FontAwesomeModule,
     BoardMenuCardComponent,
+    RouterLink,
   ],
   templateUrl: './navbar.component.html',
 })
@@ -65,6 +67,7 @@ export class NavbarComponent {
 
   dropdownMenuLabels = ['workspaces', 'recent', 'starred', 'templates'];
   justClosedMenu: string | null = null;
+  lastClickEvent: Event | null = null;
   menuButtons = viewChildren<ElementRef>('menuButton');
   contentPortals = viewChildren(CdkPortal);
   menuOverlays: Record<string, menuOverlay> = {
@@ -100,10 +103,10 @@ export class NavbarComponent {
     this.boardsService.toggleStarred(id);
   }
 
-  showDropdown(menuLabel: string) {
+  showDropdown(menuLabel: string, event: Event) {
     const menu = this.menuOverlays[menuLabel];
     console.log(menu.isOpen());
-    if (this.justClosedMenu === menuLabel) {
+    if (this.justClosedMenu === menuLabel && this.lastClickEvent == event) {
       console.log('hiding');
       this.justClosedMenu = null;
     } else {
@@ -114,20 +117,22 @@ export class NavbarComponent {
       menu.overlayRef.outsidePointerEvents().subscribe({
         next: (click) => {
           //click.stopPropagation();
-          this.hideDropdown(menuLabel);
+          this.hideDropdown(menuLabel, click);
         },
       });
       menu.isOpen.set(true);
       console.log('opening');
       console.log(menu.isOpen());
     }
+    this.lastClickEvent = event;
   }
 
-  hideDropdown(menuLabel: string) {
+  hideDropdown(menuLabel: string, event: Event | null = null) {
     const menu = this.menuOverlays[menuLabel];
     menu.overlayRef?.detach();
     menu.isOpen.set(false);
     this.justClosedMenu = menuLabel;
+    this.lastClickEvent = event;
     console.log('closed!');
   }
 
@@ -151,7 +156,7 @@ export class NavbarComponent {
       positionStrategy: positionStrategy,
       scrollStrategy: scrollStrategy,
       //hasBackdrop: true,
-      backdropClass: 'cdk-overlay-transparent-backdrop',
+      //backdropClass: 'cdk-overlay-transparent-backdrop',
     });
   }
 }

@@ -25,7 +25,7 @@
       </button>
       <a
         class="shrink-0 rounded px-2 py-2 hover:bg-blue-950 hover:bg-opacity-15"
-        routerLink="/"
+        routerLink="/boards"
       >
         <img
           loading="lazy"
@@ -43,7 +43,7 @@
             >
               <button
                 #menuButton
-                (click)="showDropdown(dropdown)"
+                (click)="showDropdown(dropdown, $event)"
                 type="button"
                 class="mr-1 rounded py-1.5 pl-3 pr-2.5 text-black hover:bg-blue-950 hover:bg-opacity-15"
               >
@@ -59,7 +59,7 @@
           <li class="xl:hidden">
             <button
               #menuButton
-              (click)="showDropdown('more')"
+              (click)="showDropdown('more', $event)"
               type="button"
               class="mr-1 block rounded py-1.5 pl-3 pr-2.5 text-black hover:bg-blue-950 hover:bg-opacity-15"
               [class]="menuOverlays['more'].isOpen() ? 'active' : ''"
@@ -141,6 +141,7 @@
         <app-board-menu-card
           [board]="board"
           (star)="toggleStar($event)"
+          (boardSelected)="hideDropdown('recent')"
         ></app-board-menu-card>
       }
     </ul>
@@ -153,6 +154,7 @@
         <app-board-menu-card
           [board]="board"
           (star)="toggleStar($event)"
+          (boardSelected)="hideDropdown('starred')"
         ></app-board-menu-card>
       }
     </ul>

@@ -1,12 +1,13 @@
 import { Component, computed, inject, input } from '@angular/core';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
 import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 import { BoardsService } from '../../../main/services/boards.service';
+import { TaskCardComponent } from '../../components/task-card/task-card.component';
 
 @Component({
   selector: 'app-board',
   standalone: true,
-  imports: [DragDropModule, NavbarComponent],
+  imports: [DragDropModule, NavbarComponent, TaskCardComponent],
   templateUrl: './board.component.html',
 })
 export class BoardComponent {
@@ -14,10 +15,12 @@ export class BoardComponent {
   boardsService = inject(BoardsService);
   board = computed(() => {
     const id = this.boardId();
-    console.log(id);
-    console.log(this.boardsService.getBoards()());
     return this.boardsService
       .getBoards()()
       .find((board) => board.id === id)!;
   });
+
+  drop(event: CdkDragDrop<any>) {
+    console.log(event);
+  }
 }
