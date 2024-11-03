@@ -3,6 +3,7 @@ import {
   computed,
   ElementRef,
   inject,
+  input,
   Signal,
   signal,
   viewChildren,
@@ -45,6 +46,7 @@ import { RouterLink } from '@angular/router';
 export class NavbarComponent {
   boardsService = inject(BoardsService);
   overlay = inject(Overlay);
+  darkTheme = input<boolean>(false);
   boards = this.boardsService.getBoards();
   recentBoards = computed(() => {
     const boards = [...this.boards()];

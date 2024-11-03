@@ -11,6 +11,8 @@ module.exports = {
         primary: colors.blue,
         danger: colors.red,
         warning: colors.yellow,
+        textDinamic: "var(--navbar-text)",
+        iconDinamic: "var(--navbar-icon)",
         trello: "#0c66e4",
         trelloHover: "#0055cc",
         trelloFocus: "#388bff",

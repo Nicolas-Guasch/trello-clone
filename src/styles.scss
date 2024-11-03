@@ -2,3 +2,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --navbar-text: #44546f;
+    --navbar-icon: #626f86;
+  }
+  .dark-nav {
+    --navbar-text: #ffffff;
+    --navbar-icon: #ffffff;
+  }
+}

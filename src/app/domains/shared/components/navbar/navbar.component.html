@@ -1,4 +1,7 @@
-<nav class="border-b border-gray-300 px-2 py-2">
+<nav
+  class="border-b px-2 py-2"
+  [class]="darkTheme() ? 'border-white/15' : 'border-gray-300'"
+>
   <div class="flex flex-nowrap items-center justify-between">
     <div class="flex items-center">
       <button
@@ -6,7 +9,8 @@
       >
         <span class="flex w-8 justify-center">
           <svg
-            class="h-5 max-h-full w-5 max-w-full text-gray-500"
+            class="text-textDinamic h-5 max-h-full w-5 max-w-full"
+            [class]="darkTheme() ? 'dark-nav' : ''"
             width="24"
             height="24"
             role="presentation"
@@ -30,7 +34,11 @@
         <img
           loading="lazy"
           class="h-4"
-          src="/images/logo/logo-gradient-neutral-trello.svg"
+          [src]="
+            darkTheme()
+              ? '/images/logo/logo-gradient-white-trello.svg'
+              : '/images/logo/logo-gradient-neutral-trello.svg'
+          "
           alt="logo"
         />
       </a>
@@ -45,12 +53,16 @@
                 #menuButton
                 (click)="showDropdown(dropdown, $event)"
                 type="button"
-                class="mr-1 rounded py-1.5 pl-3 pr-2.5 text-black hover:bg-blue-950 hover:bg-opacity-15"
+                class="mr-1 rounded py-1.5 pl-3 pr-2.5 hover:bg-blue-950 hover:bg-opacity-15"
               >
-                <span class="mr-0.5 capitalize text-gray-600">{{
-                  dropdown
-                }}</span>
-                <span class="ml-1 inline-block min-w-4 text-gray-500"
+                <span
+                  class="text-textDinamic mr-0.5 capitalize"
+                  [class]="darkTheme() ? 'dark-nav' : ''"
+                  >{{ dropdown }}</span
+                >
+                <span
+                  class="text-iconDinamic ml-1 inline-block min-w-4"
+                  [class]="darkTheme() ? 'dark-nav' : ''"
                   ><fa-icon [icon]="faAngleDown"></fa-icon>
                 </span>
               </button>
@@ -61,18 +73,24 @@
               #menuButton
               (click)="showDropdown('more', $event)"
               type="button"
-              class="mr-1 block rounded py-1.5 pl-3 pr-2.5 text-black hover:bg-blue-950 hover:bg-opacity-15"
+              class="mr-1 block rounded py-1.5 pl-3 pr-2.5 hover:bg-blue-950 hover:bg-opacity-15"
               [class]="menuOverlays['more'].isOpen() ? 'active' : ''"
             >
-              <span class="mr-0.5 capitalize text-gray-600">More </span>
-              <span class="ml-1 inline-block min-w-4 text-gray-500"
+              <span
+                class="text-textDinamic mr-0.5 capitalize"
+                [class]="darkTheme() ? 'dark-nav' : ''"
+                >More
+              </span>
+              <span
+                class="text-iconDinamic ml-1 inline-block min-w-4"
+                [class]="darkTheme() ? 'dark-nav' : ''"
                 ><fa-icon [icon]="faAngleDown"></fa-icon>
               </span>
             </button>
           </li>
 
           <li class="mx-2 h-8">
-            <app-button typeBtn="button" color="trello"
+            <app-button typeBtn="button" color="transparent"
               ><p class="px-3 py-1.5">Create</p></app-button
             >
           </li>
@@ -80,12 +98,20 @@
       </div>
     </div>
     <div class="flex items-center">
-      <button class="mr-1 h-8 w-8 rounded-full text-gray-500" type="button">
+      <button
+        class="text-iconDinamic mr-1 h-8 w-8 rounded-full"
+        [class]="darkTheme() ? 'dark-nav' : ''"
+        type="button"
+      >
         <div class="translate-x-0.5 rotate-45">
           <fa-icon [icon]="faBell"></fa-icon>
         </div>
       </button>
-      <button class="mr-1 h-8 w-8 rounded-full text-gray-500" type="button">
+      <button
+        class="text-iconDinamic mr-1 h-8 w-8 rounded-full"
+        [class]="darkTheme() ? 'dark-nav' : ''"
+        type="button"
+      >
         <fa-icon [icon]="faQuestionCircle"></fa-icon>
       </button>
       <button

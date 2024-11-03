@@ -8,9 +8,9 @@ import { Component, computed, input } from '@angular/core';
 })
 export class ButtonComponent {
   typeButton = input<'button' | 'submit' | 'reset'>('button');
-  color = input<'trello' | 'success' | 'danger' | 'warning' | 'neutral'>(
-    'trello',
-  );
+  color = input<
+    'trello' | 'success' | 'danger' | 'warning' | 'neutral' | 'transparent'
+  >('trello');
 
   getColor = computed(() => {
     return {
@@ -18,7 +18,8 @@ export class ButtonComponent {
         this.color() == 'trello' ||
         this.color() == 'success' ||
         this.color() == 'danger' ||
-        this.color() == 'warning',
+        this.color() == 'warning' ||
+        this.color() == 'transparent',
       'bg-trello': this.color() == 'trello',
       'hover:bg-trelloHover': this.color() == 'trello',
       'focus-visible:outline-trelloFocus':
@@ -34,6 +35,8 @@ export class ButtonComponent {
       'focus-visible:outline-warning-300': this.color() == 'warning',
       'bg-trelloBgNeutral': this.color() == 'neutral',
       'hover:bg-trelloBgNeutralHover': this.color() == 'neutral',
+      'bg-white/20': this.color() == 'transparent',
+      'hover:bg-white/35': this.color() == 'transparent',
     };
   });
 }
