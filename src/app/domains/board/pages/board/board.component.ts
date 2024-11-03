@@ -84,7 +84,6 @@ export class BoardComponent {
           x: mouseEvent.clientX - cardX,
           y: mouseEvent.clientY - cardY,
         };
-        console.log(this.offset);
       } else {
         this.offset = { x: 0, y: 0 };
       }
