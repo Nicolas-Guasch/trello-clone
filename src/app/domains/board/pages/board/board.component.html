@@ -95,15 +95,28 @@
                   cdkDropList
                   (cdkDropListDropped)="drop($event)"
                 >
-                  <li class=" " cdkDrag>
-                    <app-task-card class="block">Task 1</app-task-card>
-                  </li>
-                  <li class=" " cdkDrag>
-                    <app-task-card class="block">Task 2</app-task-card>
-                  </li>
-                  <li class=" " cdkDrag>
-                    <app-task-card class="block">Task 3</app-task-card>
-                  </li>
+                  @for (card of toDos(); track card.id) {
+                    <li
+                      cdkDrag
+                      (cdkDragStarted)="onDragStart($event, 'card' + card.id)"
+                      (cdkDragMoved)="onDragMove($event, 'preview' + card.id)"
+                    >
+                      <div
+                        [id]="'card' + card.id"
+                        class="min-h-9 rounded-lg bg-black/5"
+                        *cdkDragPlaceholder
+                      ></div>
+                      <app-task-card class="block">{{
+                        card.title
+                      }}</app-task-card>
+                      <app-task-card
+                        class="block"
+                        [id]="'preview' + card.id"
+                        *cdkDragPreview
+                        >{{ card.title }}</app-task-card
+                      >
+                    </li>
+                  }
                 </ol>
                 <div></div>
               </div>

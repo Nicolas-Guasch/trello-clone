@@ -13,3 +13,16 @@
     --navbar-icon: #ffffff;
   }
 }
+
+.cdk-drag-preview {
+  overflow: hidden;
+  width: 260px;
+  height: 65px;
+}
+
+.cdk-drag-preview div.bg-white {
+  transform: rotate(5deg) translate(5px, 10px);
+  overflow: hidden;
+  width: 256px;
+  height: 40px;
+}
