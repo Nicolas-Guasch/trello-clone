@@ -12,13 +12,26 @@ import {
   CdkDragStart,
   DragDropModule,
   moveItemInArray,
+  transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 import { BoardsService } from '../../../main/services/boards.service';
 import { TaskCardComponent } from '../../components/task-card/task-card.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-import { ListCard } from '../../models/list-card.model';
+import {
+  faAngleLeft,
+  faAngleRight,
+  faPlus,
+  faX,
+} from '@fortawesome/free-solid-svg-icons';
+import { BoardList, ListCard } from '../../models/list-card.model';
+import { ButtonComponent } from '../../../shared/components/button/button.component';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-board',
@@ -28,6 +41,8 @@ import { ListCard } from '../../models/list-card.model';
     NavbarComponent,
     TaskCardComponent,
     FontAwesomeModule,
+    ButtonComponent,
+    ReactiveFormsModule,
   ],
   templateUrl: './board.component.html',
   styles: `
@@ -45,6 +60,8 @@ import { ListCard } from '../../models/list-card.model';
 export class BoardComponent {
   faAngleLeft = faAngleLeft;
   faAngleRight = faAngleRight;
+  faPlus = faPlus;
+  faX = faX;
 
   boardId = input.required<string>();
   boardsService = inject(BoardsService);
@@ -55,24 +72,97 @@ export class BoardComponent {
       .find((board) => board.id === id)!;
   });
 
-  toDos = signal<ListCard[]>([
-    { id: '1', title: 'Task 1' },
-    { id: '2', title: 'Task 2' },
-    { id: '3', title: 'Task 3' },
-  ]);
+  listCreation = signal(false);
+  listForm = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+  });
 
-  drop(event: CdkDragDrop<any>) {
-    this.toDos.update((cards) => {
-      moveItemInArray(cards, event.previousIndex, event.currentIndex);
-      return [...cards];
-    });
+  toDos = signal<BoardList>({
+    id: '1',
+    title: 'To Do',
+    cards: [
+      { id: '1', title: 'Task 1' },
+      { id: '2', title: 'Task 2' },
+      { id: '3', title: 'Task 3' },
+    ],
+  });
+  doing = signal<BoardList>({
+    id: '2',
+    title: 'Doing',
+    cards: [
+      { id: '4', title: 'Task 4' },
+      { id: '5', title: 'Task 5' },
+      { id: '6', title: 'Task 6' },
+    ],
+  });
+  done = signal<BoardList>({
+    id: '3',
+    title: 'Done',
+    cards: [
+      { id: '7', title: 'Task 7' },
+      { id: '8', title: 'Task 8' },
+      { id: '9', title: 'Task 9' },
+    ],
+  });
+
+  boardLists = signal([this.toDos, this.doing, this.done]);
+
+  toggleListCreation() {
+    if (this.listCreation()) {
+      this.listForm.reset();
+    }
+    this.listCreation.update((value) => !value);
+  }
+
+  addList() {
+    if (this.listForm.valid) {
+      this.boardLists.update((board) => [
+        ...board,
+        signal({
+          id: Date.now().toString(),
+          title: this.listForm.get('title')?.value!,
+          cards: [],
+        }),
+      ]);
+      this.listForm.reset();
+      this.listCreation.set(false);
+    }
+  }
+
+  drop(event: CdkDragDrop<BoardList>) {
+    if (event.previousContainer === event.container) {
+      const list = this.boardLists().find(
+        (list) => list() === event.container.data,
+      );
+      list?.update((list) => {
+        moveItemInArray(list.cards, event.previousIndex, event.currentIndex);
+        return { ...list, cards: [...list.cards] };
+      });
+    } else {
+      const previousList = this.boardLists().find(
+        (list) => list() === event.previousContainer.data,
+      );
+      const list = this.boardLists().find(
+        (list) => list() === event.container.data,
+      );
+      let previous = [...event.previousContainer.data.cards];
+      let current = [...event.container.data.cards];
+      transferArrayItem(
+        previous,
+        current,
+        event.previousIndex,
+        event.currentIndex,
+      );
+      previousList?.update((list) => ({ ...list, cards: previous }));
+      list?.update((list) => ({ ...list, cards: current }));
+    }
   }
 
   offset = { x: 0, y: 0 };
-  onDragStart(event: CdkDragStart<HTMLLIElement>, id: string): void {
-    if (document.querySelector('#' + id)) {
-      const card = new ElementRef<HTMLLIElement>(
-        document.querySelector('#' + id)!,
+  onDragStart(event: CdkDragStart<ListCard>, id: string): void {
+    if (document.querySelector('#card' + id)) {
+      const card = new ElementRef<HTMLDivElement>(
+        document.querySelector('#card' + id)!,
       );
       if (event.event instanceof MouseEvent) {
         const mouseEvent: MouseEvent = event.event;
@@ -84,20 +174,32 @@ export class BoardComponent {
           x: mouseEvent.clientX - cardX,
           y: mouseEvent.clientY - cardY,
         };
+
+        this.offsetPreview(
+          { x: mouseEvent.clientX, y: mouseEvent.clientY },
+          id,
+        );
       } else {
         this.offset = { x: 0, y: 0 };
       }
     }
   }
 
-  onDragMove(event: CdkDragMove<HTMLLIElement>, id: string): void {
-    if (document.querySelector('#' + id)) {
+  offsetPreview(position: { x: number; y: number }, id: string) {
+    if (document.querySelector('#preview' + id)) {
       const cardPreview = new ElementRef<HTMLLIElement>(
-        document.querySelector('#' + id)!,
+        document.querySelector('#preview' + id)!,
       );
-      const xPos = event.pointerPosition.x - this.offset.x;
-      const yPos = event.pointerPosition.y - this.offset.y;
+      const xPos = position.x - this.offset.x;
+      const yPos = position.y - this.offset.y;
       cardPreview.nativeElement.style.transform = `translate3d(${xPos}px, ${yPos}px, 0)`;
     }
+  }
+
+  onDragMove(event: CdkDragMove<ListCard>, id: string): void {
+    this.offsetPreview(
+      { x: event.pointerPosition.x, y: event.pointerPosition.y },
+      id,
+    );
   }
 }
