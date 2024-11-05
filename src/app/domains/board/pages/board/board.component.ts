@@ -39,7 +39,11 @@ import {
 import { AddCardPanelComponent } from '../../components/add-card-panel/add-card-panel.component';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
 import { Dialog } from '@angular/cdk/dialog';
-import { CardDetailsComponent } from '../../components/card-details/card-details.component';
+import {
+  CardDetailsComponent,
+  CustomDialogContainer,
+} from '../../components/card-details/card-details.component';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-board',
@@ -258,7 +262,7 @@ export class BoardComponent {
   openDialog(card: ListCard, list: WritableSignal<BoardList>) {
     this.dialog.open(CardDetailsComponent, {
       minHeight: '600px',
-      width: '768px',
+      width: '780px',
       data: { card: card, list: list },
     });
   }

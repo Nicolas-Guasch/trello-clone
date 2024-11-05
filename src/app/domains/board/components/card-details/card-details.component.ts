@@ -2,18 +2,28 @@ import { Component, inject, WritableSignal } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faAngleDown,
+  faArrowRight,
+  faBoxArchive,
   faCheck,
   faClock,
+  faCopy,
   faKeyboard,
   faPaperclip,
   faPenClip,
   faRectangleList,
+  faShare,
+  faShareAlt,
   faTag,
   faUser,
   faUserPlus,
   faX,
 } from '@fortawesome/free-solid-svg-icons';
-import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
+import {
+  CdkDialogContainer,
+  DIALOG_DATA,
+  DialogModule,
+  DialogRef,
+} from '@angular/cdk/dialog';
 import { BoardList, ListCard } from '../../models/list-card.model';
 
 interface DialogInputData {
@@ -39,6 +49,11 @@ export class CardDetailsComponent {
   faAttachment = faPaperclip;
   faCover = faRectangleList;
   faCustom = faKeyboard;
+  faMove = faArrowRight;
+  faCopy = faCopy;
+  faTemplate = faRectangleList;
+  faArchive = faBoxArchive;
+  faShare = faShareAlt;
 
   private dialogRef = inject(DialogRef);
   private data: DialogInputData = inject(DIALOG_DATA);
@@ -50,3 +65,12 @@ export class CardDetailsComponent {
     this.dialogRef.close();
   }
 }
+
+@Component({
+  selector: 'custom-dialog-container',
+  standalone: true,
+  imports: [DialogModule],
+  template: `<ng-template cdkPortalOutlet></ng-template>`,
+  styles: ``,
+})
+export class CustomDialogContainer extends CdkDialogContainer {}
