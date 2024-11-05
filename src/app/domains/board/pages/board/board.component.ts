@@ -255,10 +255,11 @@ export class BoardComponent {
     );
   }
 
-  openDialog() {
+  openDialog(card: ListCard, list: WritableSignal<BoardList>) {
     this.dialog.open(CardDetailsComponent, {
       minHeight: '600px',
       width: '768px',
+      data: { card: card, list: list },
     });
   }
 }

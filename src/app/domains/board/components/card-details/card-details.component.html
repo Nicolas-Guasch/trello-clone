@@ -9,7 +9,7 @@
       <fa-icon [icon]="faX"> </fa-icon>
     </span>
   </button>
-  <div>
+  <div class="bg-trelloBgNeutral">
     <div class="pl-4 pr-[52px] pt-4">
       <section
         class="mb-6 grid"
@@ -22,18 +22,86 @@
         </div>
         <hgroup>
           <textarea
-            class="-mx-2.5 -my-1.5 block h-9 w-full resize-none rounded border-none bg-transparent px-2.5 py-1.5 text-xl/6 font-semibold outline-none"
+            class="-mx-2.5 -my-1.5 block h-9 w-full resize-none rounded border-none bg-transparent px-2.5 py-1.5 text-xl/6 font-semibold outline-none focus:bg-white"
             dir="auto"
             maxlength="16384"
-          ></textarea>
+            >{{ card.title }}</textarea
+          >
         </hgroup>
         <div style="grid-column-end: none; grid-column-start: body">
           <p class="mt-1 flex flex-wrap items-center gap-x-1">
-            in list <button></button>
+            in list
+            <button class="bg-trelloButtonNeutral rounded">
+              <span class="px-1"
+                ><span class="font-bold uppercase text-gray-600">
+                  {{ list().title }}
+                </span>
+                <span class="h-4 w-4 text-gray-600"
+                  ><fa-icon [icon]="faAngleDown"></fa-icon></span
+              ></span>
+            </button>
           </p>
         </div>
       </section>
     </div>
-    <div></div>
+    <div
+      class="grid gap-x-4 gap-y-1"
+      style="grid-template-columns: [main] 568px [sidebar] minmax(0, 1fr)"
+    >
+      <div class="pb-2 pl-4" style="grid-column-start: main">
+        <div>Notifications</div>
+        <section>Description</section>
+        <section>Activity</section>
+      </div>
+      <div class="pb-6 pr-4" style="grid-column-start: sidebar">
+        <section>
+          <ul>
+            <li>
+              <button>
+                <span><fa-icon [icon]="faUserPlus"></fa-icon></span>Join
+              </button>
+            </li>
+            <li>
+              <button>
+                <span><fa-icon [icon]="faUser"></fa-icon></span>Members
+              </button>
+            </li>
+            <li>
+              <button>
+                <span><fa-icon [icon]="faLabel"></fa-icon></span>Labels
+              </button>
+            </li>
+            <li>
+              <button>
+                <span><fa-icon [icon]="faChecklist"></fa-icon></span>Checklist
+              </button>
+            </li>
+            <li>
+              <button>
+                <span><fa-icon [icon]="faDates"></fa-icon></span>Dates
+              </button>
+            </li>
+            <li>
+              <button>
+                <span><fa-icon [icon]="faAttachment"></fa-icon></span>Attachment
+              </button>
+            </li>
+            <li>
+              <button>
+                <span><fa-icon [icon]="faCover"></fa-icon></span>Cover
+              </button>
+            </li>
+            <li>
+              <button>
+                <span><fa-icon [icon]="faCustom"></fa-icon></span>Custom Fields
+              </button>
+            </li>
+          </ul>
+        </section>
+        <section>Power Ups</section>
+        <section>Automation</section>
+        <section>Actions</section>
+      </div>
+    </div>
   </div>
 </div>

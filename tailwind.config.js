@@ -18,6 +18,7 @@ module.exports = {
         trelloFocus: "#388bff",
         trelloShadow: "#2684ff99",
         trelloBgNeutral: "#091e420f",
+        trelloButtonNeutral: "#e2e4ea",
         trelloBgNeutralHover: "#091e4224",
         trelloBgNeutralPressed: "#091e424f",
       },
