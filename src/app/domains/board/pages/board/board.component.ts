@@ -1,10 +1,14 @@
 import {
   Component,
   computed,
+  effect,
   ElementRef,
   inject,
   input,
+  Signal,
   signal,
+  viewChild,
+  WritableSignal,
 } from '@angular/core';
 import {
   CdkDragDrop,
@@ -32,6 +36,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AddCardPanelComponent } from '../../components/add-card-panel/add-card-panel.component';
+import { faTrello } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-board',
@@ -43,9 +49,21 @@ import {
     FontAwesomeModule,
     ButtonComponent,
     ReactiveFormsModule,
+    AddCardPanelComponent,
   ],
   templateUrl: './board.component.html',
   styles: `
+    .listContainer {
+      scrollbar-color: #fff6 #00000026;
+      scrollbar-width: auto;
+    }
+
+    .cardList,
+    .sidenav {
+      scrollbar-color: #091e4224 #091e420f;
+      scrollbar-width: thin;
+    }
+
     /* Animate items as they're being sorted. */
     .cdk-drop-list-dragging .cdk-drag {
       transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
@@ -62,6 +80,7 @@ export class BoardComponent {
   faAngleRight = faAngleRight;
   faPlus = faPlus;
   faX = faX;
+  faTrello = faTrello;
 
   boardId = input.required<string>();
   boardsService = inject(BoardsService);
@@ -85,6 +104,7 @@ export class BoardComponent {
       { id: '2', title: 'Task 2' },
       { id: '3', title: 'Task 3' },
     ],
+    currentlyAdding: false,
   });
   doing = signal<BoardList>({
     id: '2',
@@ -94,6 +114,7 @@ export class BoardComponent {
       { id: '5', title: 'Task 5' },
       { id: '6', title: 'Task 6' },
     ],
+    currentlyAdding: false,
   });
   done = signal<BoardList>({
     id: '3',
@@ -103,15 +124,36 @@ export class BoardComponent {
       { id: '8', title: 'Task 8' },
       { id: '9', title: 'Task 9' },
     ],
+    currentlyAdding: false,
   });
 
   boardLists = signal([this.toDos, this.doing, this.done]);
+
+  dialog = inject();
+
+  titleInput = viewChild<ElementRef<HTMLTextAreaElement>>('titleInput');
+  constructor() {
+    effect(() => {
+      const input = this.titleInput();
+      if (input) {
+        input.nativeElement.focus();
+      }
+    });
+  }
 
   toggleListCreation() {
     if (this.listCreation()) {
       this.listForm.reset();
     }
     this.listCreation.update((value) => !value);
+  }
+
+  toggleAddCard(index: number) {
+    const list = this.boardLists()[index];
+    list.update((list) => ({
+      ...list,
+      currentlyAdding: !list.currentlyAdding,
+    }));
   }
 
   addList() {
@@ -122,11 +164,19 @@ export class BoardComponent {
           id: Date.now().toString(),
           title: this.listForm.get('title')?.value!,
           cards: [],
+          currentlyAdding: false,
         }),
       ]);
       this.listForm.reset();
       this.listCreation.set(false);
     }
+  }
+
+  dropList(event: CdkDragDrop<WritableSignal<BoardList>[]>) {
+    this.boardLists?.update((list) => {
+      moveItemInArray(list, event.previousIndex, event.currentIndex);
+      return [...list];
+    });
   }
 
   drop(event: CdkDragDrop<BoardList>) {

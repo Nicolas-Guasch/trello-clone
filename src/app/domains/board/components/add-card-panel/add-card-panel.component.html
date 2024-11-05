@@ -1,0 +1,19 @@
+<form [formGroup]="form" (ngSubmit)="addCard()" (focusout)="cancel()">
+  <textarea
+    #input
+    class="h-14 max-h-40 min-h-9 w-full resize-none overflow-hidden rounded-lg border-none px-3 py-2 shadow-lg"
+    placeholder="Enter a title"
+    formControlName="title"
+    (keydown.enter)="addCard()"
+  ></textarea>
+  <div class="mt-2 flex items-center justify-start gap-1">
+    <app-button [typeButton]="'submit'"
+      ><div class="px-3 py-1.5">Add list</div></app-button
+    >
+    <button type="button" class="p-1.5" (click)="cancel()">
+      <span class="text-sm text-gray-700"
+        ><fa-icon [icon]="faX"></fa-icon
+      ></span>
+    </button>
+  </div>
+</form>

@@ -20,11 +20,21 @@
   height: 65px;
 }
 
-.cdk-drag-preview div.bg-white {
+.cdk-drag-preview > div.cardContainer {
   transform: rotate(5deg) translate(5px, 10px);
   overflow: hidden;
   width: 256px;
   height: 40px;
   background-color: #ffffff80;
   color: #00000080;
+}
+
+.cdk-drag-preview > div.listPanel {
+  transform: rotate(5deg) translate(5px, 10px);
+  overflow: hidden;
+  background-color: #ffffff80;
+  color: #00000080;
+  & div.cardContainer {
+    background-color: #ffffff80;
+  }
 }

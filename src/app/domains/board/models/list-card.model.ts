@@ -7,4 +7,5 @@ export interface BoardList {
   id: string;
   title: string;
   cards: ListCard[];
+  currentlyAdding: boolean;
 }
