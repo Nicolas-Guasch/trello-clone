@@ -1,16 +1,19 @@
-import { Component, inject, WritableSignal } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faAngleDown,
   faArrowRight,
   faBoxArchive,
   faCheck,
+  faCircleArrowUp,
   faClock,
   faCopy,
   faKeyboard,
+  faMinus,
   faPaperclip,
   faPenClip,
   faRectangleList,
+  faRefresh,
   faShare,
   faShareAlt,
   faTag,
@@ -54,12 +57,56 @@ export class CardDetailsComponent {
   faTemplate = faRectangleList;
   faArchive = faBoxArchive;
   faShare = faShareAlt;
+  faRetry = faRefresh;
+  faMinus = faMinus;
 
   private dialogRef = inject(DialogRef);
   private data: DialogInputData = inject(DIALOG_DATA);
 
   card = this.data.card;
   list = this.data.list;
+
+  archived = signal(false);
+  position = 0;
+
+  submitTitle(event: Event) {
+    const textArea = event.target as HTMLTextAreaElement;
+    const input = textArea.value.trim();
+    if (input != '') {
+      console.log(input);
+      this.card.title = input;
+      this.list.update((list) => ({
+        ...list,
+        cards: list.cards.map((card) =>
+          card.id == this.card.id ? this.card : card,
+        ),
+      }));
+    }
+    textArea.blur();
+  }
+
+  archiveCard() {
+    this.position = this.list().cards.indexOf(this.card);
+    this.list.update((list) => ({
+      ...list,
+      cards: list.cards.filter((card) => card.id != this.card.id),
+    }));
+    //TODO: ADD TO ARCHIVE
+    this.archived.set(true);
+  }
+
+  sendToBoard() {
+    this.archived.set(false);
+    this.list.update((list) => {
+      list.cards.splice(this.position, 0, this.card);
+      return { ...list };
+    });
+  }
+
+  deleteCard() {
+    //TODO: REMOVE FROM ARCHIVE
+    this.close();
+  }
 
   close() {
     this.dialogRef.close();

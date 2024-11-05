@@ -11,6 +11,29 @@
       </span>
     </button>
     <div class="bg-trelloBgNeutral">
+      @if (archived()) {
+        <div
+          class="relative min-h-8 overflow-hidden rounded-t-xl bg-amber-100 p-4 pl-14"
+          style="
+            background-image: linear-gradient(
+              to bottom right,
+              var(--ds-background-neutral, rgba(0, 0, 0, 0.05)) 25%,
+              transparent 25%,
+              transparent 50%,
+              var(--ds-background-neutral, rgba(0, 0, 0, 0.05)) 50%,
+              var(--ds-background-neutral, rgba(0, 0, 0, 0.05)) 75%,
+              transparent 75%,
+              transparent
+            );
+            background-size: 14px 14px;
+          "
+        >
+          <span class="absolute left-5 top-5 inline-block h-6 w-6 text-2xl/3"
+            ><fa-icon class="h-6" [icon]="faArchive"></fa-icon
+          ></span>
+          <p class="text-base/8">This card is archived</p>
+        </div>
+      }
       <div class="pl-4 pr-[52px] pt-4">
         <section
           class="mb-6 grid"
@@ -26,6 +49,8 @@
               class="-mx-2.5 -my-1.5 block h-9 w-full resize-none rounded border-none bg-transparent px-2.5 py-1.5 text-xl/6 font-semibold outline-none focus:bg-white"
               dir="auto"
               maxlength="16384"
+              (change)="submitTitle($event)"
+              (keydown.enter)="submitTitle($event)"
               >{{ card.title }}</textarea
             >
           </hgroup>
@@ -169,16 +194,42 @@
                 </button>
               </li>
               <hr />
-              <li>
-                <button
-                  class="inline-flex w-full cursor-pointer scroll-m-2 items-center justify-start rounded bg-trelloButtonNeutral px-3 py-1.5 text-left text-sm text-gray-700 hover:bg-trelloBgNeutralHover active:bg-trelloBgNeutralPressed"
-                >
-                  <span class="mr-2 box-content inline-flex h-4 w-4 shrink-0"
-                    ><fa-icon [icon]="faArchive"></fa-icon
-                  ></span>
-                  Archive
-                </button>
-              </li>
+              @if (archived()) {
+                <li>
+                  <button
+                    class="inline-flex w-full cursor-pointer scroll-m-2 items-center justify-start rounded bg-trelloButtonNeutral px-3 py-1.5 text-left text-sm text-gray-700 hover:bg-trelloBgNeutralHover active:bg-trelloBgNeutralPressed"
+                    (click)="sendToBoard()"
+                  >
+                    <span class="mr-2 box-content inline-flex h-4 w-4 shrink-0"
+                      ><fa-icon [icon]="faRetry"></fa-icon
+                    ></span>
+                    Send to board
+                  </button>
+                </li>
+                <li>
+                  <button
+                    class="inline-flex w-full cursor-pointer scroll-m-2 items-center justify-start rounded bg-[#c9372c] px-3 py-1.5 text-left text-sm text-white hover:bg-red-700 active:bg-red-800"
+                    (click)="deleteCard()"
+                  >
+                    <span class="mr-2 box-content inline-flex h-4 w-4 shrink-0"
+                      ><fa-icon [icon]="faMinus"></fa-icon
+                    ></span>
+                    Delete
+                  </button>
+                </li>
+              } @else {
+                <li>
+                  <button
+                    class="inline-flex w-full cursor-pointer scroll-m-2 items-center justify-start rounded bg-trelloButtonNeutral px-3 py-1.5 text-left text-sm text-gray-700 hover:bg-trelloBgNeutralHover active:bg-trelloBgNeutralPressed"
+                    (click)="archiveCard()"
+                  >
+                    <span class="mr-2 box-content inline-flex h-4 w-4 shrink-0"
+                      ><fa-icon [icon]="faArchive"></fa-icon
+                    ></span>
+                    Archive
+                  </button>
+                </li>
+              }
               <li>
                 <button
                   class="inline-flex w-full cursor-pointer scroll-m-2 items-center justify-start rounded bg-trelloButtonNeutral px-3 py-1.5 text-left text-sm text-gray-700 hover:bg-trelloBgNeutralHover active:bg-trelloBgNeutralPressed"
