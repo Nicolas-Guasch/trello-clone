@@ -1,0 +1,39 @@
+<div class="relative w-[768px] overflow-visible rounded-lg bg-white text-sm">
+  <button
+    class="absolute right-2 top-2 rounded-[50%] p-1.5 hover:bg-trelloBgNeutralHover"
+    role="button"
+    type="button"
+    (click)="close()"
+  >
+    <span class="block h-6 w-6">
+      <fa-icon [icon]="faX"> </fa-icon>
+    </span>
+  </button>
+  <div>
+    <div class="pl-4 pr-[52px] pt-4">
+      <section
+        class="mb-6 grid"
+        style="grid-template-columns: [icon] 40px [body] minmax(0, 1fr)"
+      >
+        <div>
+          <span class="inline-block p-1"
+            ><fa-icon [icon]="faRectangleList"></fa-icon
+          ></span>
+        </div>
+        <hgroup>
+          <textarea
+            class="-mx-2.5 -my-1.5 block h-9 w-full resize-none rounded border-none bg-transparent px-2.5 py-1.5 text-xl/6 font-semibold outline-none"
+            dir="auto"
+            maxlength="16384"
+          ></textarea>
+        </hgroup>
+        <div style="grid-column-end: none; grid-column-start: body">
+          <p class="mt-1 flex flex-wrap items-center gap-x-1">
+            in list <button></button>
+          </p>
+        </div>
+      </section>
+    </div>
+    <div></div>
+  </div>
+</div>

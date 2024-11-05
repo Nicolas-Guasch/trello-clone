@@ -115,7 +115,7 @@
                           class="min-h-9 rounded-lg bg-black/5"
                           *cdkDragPlaceholder
                         ></div>
-                        <app-task-card class="block">{{
+                        <app-task-card class="block" (click)="openDialog()">{{
                           card.title
                         }}</app-task-card>
                         <app-task-card

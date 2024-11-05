@@ -38,6 +38,8 @@ import {
 } from '@angular/forms';
 import { AddCardPanelComponent } from '../../components/add-card-panel/add-card-panel.component';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
+import { Dialog } from '@angular/cdk/dialog';
+import { CardDetailsComponent } from '../../components/card-details/card-details.component';
 
 @Component({
   selector: 'app-board',
@@ -129,7 +131,7 @@ export class BoardComponent {
 
   boardLists = signal([this.toDos, this.doing, this.done]);
 
-  dialog = inject();
+  dialog = inject(Dialog);
 
   titleInput = viewChild<ElementRef<HTMLTextAreaElement>>('titleInput');
   constructor() {
@@ -251,5 +253,12 @@ export class BoardComponent {
       { x: event.pointerPosition.x, y: event.pointerPosition.y },
       id,
     );
+  }
+
+  openDialog() {
+    this.dialog.open(CardDetailsComponent, {
+      minHeight: '600px',
+      width: '768px',
+    });
   }
 }
