@@ -1,1 +1,40 @@
-<p>table-view works!</p>
+<div class="relative -mt-3 overflow-y-auto overflow-x-hidden bg-white px-2">
+  <table
+    cdk-table
+    [dataSource]="cards"
+    class="w-full text-left text-sm text-gray-500"
+  >
+    <ng-container cdkColumnDef="Card">
+      <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>Card</th>
+      <td class="px-6 py-4" cdk-cell *cdkCellDef="let card">
+        {{ card.card.title }}
+      </td>
+    </ng-container>
+    <ng-container cdkColumnDef="List">
+      <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>List</th>
+      <td class="px-6 py-4" cdk-cell *cdkCellDef="let card">{{ card.list }}</td>
+    </ng-container>
+    <ng-container cdkColumnDef="Labels">
+      <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>Labels</th>
+      <td class="px-6 py-4" cdk-cell *cdkCellDef="let card"></td>
+    </ng-container>
+    <ng-container cdkColumnDef="Members">
+      <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>Members</th>
+      <td class="px-6 py-4" cdk-cell *cdkCellDef="let card"></td>
+    </ng-container>
+    <ng-container cdkColumnDef="Due date">
+      <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>Due date</th>
+      <td class="px-6 py-4" cdk-cell *cdkCellDef="let card"></td>
+    </ng-container>
+    <tr
+      cdk-header-row
+      *cdkHeaderRowDef="columns"
+      class="border-b bg-white text-xs text-gray-700"
+    ></tr>
+    <tr
+      cdk-row
+      *cdkRowDef="let row; columns: columns"
+      class="border-b border-r bg-white"
+    ></tr>
+  </table>
+</div>
