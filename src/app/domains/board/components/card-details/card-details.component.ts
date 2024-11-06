@@ -5,16 +5,13 @@ import {
   faArrowRight,
   faBoxArchive,
   faCheck,
-  faCircleArrowUp,
   faClock,
   faCopy,
   faKeyboard,
   faMinus,
   faPaperclip,
-  faPenClip,
   faRectangleList,
-  faRefresh,
-  faShare,
+  faRotateLeft,
   faShareAlt,
   faTag,
   faUser,
@@ -57,7 +54,7 @@ export class CardDetailsComponent {
   faTemplate = faRectangleList;
   faArchive = faBoxArchive;
   faShare = faShareAlt;
-  faRetry = faRefresh;
+  faRetry = faRotateLeft;
   faMinus = faMinus;
 
   private dialogRef = inject(DialogRef);
