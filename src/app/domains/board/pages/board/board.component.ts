@@ -1,47 +1,20 @@
-import {
-  Component,
-  computed,
-  effect,
-  ElementRef,
-  inject,
-  input,
-  Signal,
-  signal,
-  viewChild,
-  WritableSignal,
-} from '@angular/core';
-import {
-  CdkDragDrop,
-  CdkDragMove,
-  CdkDragStart,
-  DragDropModule,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
 import { BoardsService } from '../../../main/services/boards.service';
-import { TaskCardComponent } from '../../components/task-card/task-card.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
+  faAngleDown,
   faAngleLeft,
   faAngleRight,
-  faPlus,
+  faChartSimple,
+  faLock,
+  faStar,
   faX,
 } from '@fortawesome/free-solid-svg-icons';
-import { BoardList, ListCard } from '../../models/list-card.model';
-import { ButtonComponent } from '../../../shared/components/button/button.component';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { AddCardPanelComponent } from '../../components/add-card-panel/add-card-panel.component';
-import { faTrello } from '@fortawesome/free-brands-svg-icons';
-import { Dialog } from '@angular/cdk/dialog';
-import { CardDetailsComponent } from '../../components/card-details/card-details.component';
+import { BoardList } from '../../models/list-card.model';
 import { BoardViewComponent } from '../../components/board-view/board-view.component';
 import { TableViewComponent } from '../../components/table-view/table-view.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 type WorkspaceView = 'Board' | 'Table';
 
@@ -49,43 +22,28 @@ type WorkspaceView = 'Board' | 'Table';
   selector: 'app-board',
   standalone: true,
   imports: [
-    DragDropModule,
     NavbarComponent,
-    TaskCardComponent,
     FontAwesomeModule,
-    ButtonComponent,
-    ReactiveFormsModule,
-    AddCardPanelComponent,
     BoardViewComponent,
     TableViewComponent,
+    OverlayModule,
   ],
   templateUrl: './board.component.html',
   styles: `
-    .listContainer {
-      scrollbar-color: #fff6 #00000026;
-      scrollbar-width: auto;
-    }
-
-    .cardList,
     .sidenav {
       scrollbar-color: #091e4224 #091e420f;
       scrollbar-width: thin;
-    }
-
-    /* Animate items as they're being sorted. */
-    .cdk-drop-list-dragging .cdk-drag {
-      transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-    }
-
-    /* Animate an item that has been dropped. */
-    .cdk-drag-animating {
-      transition: transform 300ms cubic-bezier(0, 0, 0.2, 1);
     }
   `,
 })
 export class BoardComponent {
   faAngleLeft = faAngleLeft;
   faAngleRight = faAngleRight;
+  faStar = faStar;
+  faLock = faLock;
+  faChart = faChartSimple;
+  faAngleDown = faAngleDown;
+  faX = faX;
 
   boardId = input.required<string>();
   boardsService = inject(BoardsService);
@@ -97,11 +55,16 @@ export class BoardComponent {
   });
 
   currentView = signal<WorkspaceView>('Board');
+  isViewsOpen = signal(false);
 
-  listCreation = signal(false);
-  listForm = new FormGroup({
-    title: new FormControl('', [Validators.required]),
-  });
+  toggleViews() {
+    this.isViewsOpen.update((value) => !value);
+  }
+
+  setView(view: WorkspaceView) {
+    this.currentView.set(view);
+    this.isViewsOpen.set(false);
+  }
 
   toDos = signal<BoardList>({
     id: '1',

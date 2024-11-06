@@ -65,6 +65,44 @@
                 {{ board().title }}
               </h1>
             </div>
+            <div>
+              <button
+                class="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded bg-transparent p-1.5 text-sm/8 text-white"
+                (click)="boardsService.toggleStarred(board().id)"
+              >
+                <span
+                  class="inline-block"
+                  [class]="
+                    board().starred ? 'text-yellow-500' : 'text-gray-400'
+                  "
+                  ><fa-icon [icon]="faStar"></fa-icon
+                ></span>
+              </button>
+            </div>
+            <div class="mx-1">
+              <button
+                class="inline-flex h-8 w-8 cursor-pointer items-center justify-center rounded bg-transparent p-1.5 text-sm/8 text-white"
+              >
+                <span class="inline-block"
+                  ><fa-icon [icon]="faLock"></fa-icon
+                ></span>
+              </button>
+            </div>
+            <div class="h-8 text-base/8">
+              <button
+                class="relative inline-flex cursor-pointer items-center justify-center rounded bg-[#dcdfe4] p-1.5 text-sm text-[#172b4d] hover:bg-white"
+                type="button"
+                cdkOverlayOrigin
+                #viewsDropdown="cdkOverlayOrigin"
+                (click)="toggleViews()"
+              >
+                <span class="mr-2"
+                  ><fa-icon [icon]="faChart" [rotate]="180"></fa-icon
+                ></span>
+                <span class="mr-2">Board</span>
+                <span><fa-icon [icon]="faAngleDown"></fa-icon></span>
+              </button>
+            </div>
           </span>
           <span></span>
         </div>
@@ -82,3 +120,51 @@
     </main>
   </div>
 </div>
+<ng-template
+  cdk-connected-overlay
+  [cdkConnectedOverlayOrigin]="viewsDropdown"
+  [cdkConnectedOverlayOpen]="isViewsOpen()"
+>
+  <section
+    class="block w-[304px] overflow-hidden rounded-lg bg-white shadow-lg"
+  >
+    <header
+      class="relative grid items-center px-2 py-1 text-center"
+      style="grid-template-columns: 32px 1fr 32px"
+    >
+      <h2
+        class="relative block h-10 px-8 text-base/10 font-semibold text-gray-600"
+        style="grid-column: 1 / span 3; grid-row: 1"
+      >
+        Views
+      </h2>
+      <button
+        class="flex items-center justify-center rounded-lg hover:bg-trelloBgNeutralHover"
+        style="grid-column: 3; grid-row: 1"
+      >
+        <fa-icon
+          class="h-4 w-4 shrink-0 text-base/4 text-gray-500"
+          [icon]="faX"
+        ></fa-icon>
+      </button>
+    </header>
+    <div class="overflow-y-auto overflow-x-hidden p-3 pt-0 text-sm">
+      <ul>
+        <li class="mb-2 flex h-8 justify-center">
+          <a
+            class="w-full cursor-pointer pl-1.5 text-center hover:bg-trelloBgNeutralHover"
+            (click)="setView('Board')"
+            >Board</a
+          >
+        </li>
+        <li class="mb-2 flex h-8 justify-center">
+          <a
+            class="w-full cursor-pointer pl-1.5 text-center hover:bg-trelloBgNeutralHover"
+            (click)="setView('Table')"
+            >Table</a
+          >
+        </li>
+      </ul>
+    </div>
+  </section>
+</ng-template>
