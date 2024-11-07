@@ -8,4 +8,5 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'boards', component: BoardsComponent },
   { path: 'b/:boardId', component: BoardComponent },
+  { path: '', redirectTo: '/boards', pathMatch: 'full' },
 ];
