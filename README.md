@@ -1,5 +1,9 @@
 # TrelloClone
 
+![Snapshots of two of the projects pages](/public/TrelloClone.jpg)
+
+A page layout exercise with [Tailwind CSS](https://tailwindcss.com/) and Angular's [Component Development Kit](https://material.angular.io/cdk).
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3.
 
 ## Development server
