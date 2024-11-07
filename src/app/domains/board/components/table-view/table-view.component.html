@@ -1,4 +1,5 @@
 <div class="relative -mt-3 overflow-y-auto overflow-x-hidden bg-white px-2">
+  <input class="m-2 text-black" type="search" [formControl]="searchInput" />
   <table
     cdk-table
     [dataSource]="cards"
@@ -16,7 +17,15 @@
     </ng-container>
     <ng-container cdkColumnDef="Labels">
       <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>Labels</th>
-      <td class="px-6 py-4" cdk-cell *cdkCellDef="let card"></td>
+      <td class="px-6 py-4" cdk-cell *cdkCellDef="let card">
+        @for (label of card.card.labels; track label.id) {
+          <span
+            class="rounded px-2 py-1 text-black"
+            [style]="'background-color: ' + label.color"
+            >{{ label.title }}</span
+          >
+        }
+      </td>
     </ng-container>
     <ng-container cdkColumnDef="Members">
       <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>Members</th>
@@ -24,7 +33,20 @@
     </ng-container>
     <ng-container cdkColumnDef="Due date">
       <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>Due date</th>
-      <td class="px-6 py-4" cdk-cell *cdkCellDef="let card"></td>
+      <td class="px-6 py-4" cdk-cell *cdkCellDef="let card">
+        {{ card.card.dueDate | date }}
+      </td>
+    </ng-container>
+    <ng-container cdkColumnDef="Actions">
+      <th class="px-6 py-3" cdk-header-cell *cdkHeaderCellDef>Actions</th>
+      <td class="w-48 px-6 py-4" cdk-cell *cdkCellDef="let card">
+        <app-button (click)="setDueTomorrow(card)"
+          ><div class="px-1 py-2">Set for tomorrow</div></app-button
+        >
+        <app-button (click)="labelExperimental(card)"
+          ><div class="px-1 py-2">Label as experimental</div></app-button
+        >
+      </td>
     </ng-container>
     <tr
       cdk-header-row

@@ -124,6 +124,7 @@
   cdk-connected-overlay
   [cdkConnectedOverlayOrigin]="viewsDropdown"
   [cdkConnectedOverlayOpen]="isViewsOpen()"
+  (overlayOutsideClick)="isViewsOpen.set(false)"
 >
   <section
     class="block w-[304px] overflow-hidden rounded-lg bg-white shadow-lg"
@@ -139,8 +140,9 @@
         Views
       </h2>
       <button
-        class="flex items-center justify-center rounded-lg hover:bg-trelloBgNeutralHover"
+        class="z-20 flex h-8 items-center justify-center rounded-lg hover:bg-trelloBgNeutralHover"
         style="grid-column: 3; grid-row: 1"
+        (click)="toggleViews()"
       >
         <fa-icon
           class="h-4 w-4 shrink-0 text-base/4 text-gray-500"
